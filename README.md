@@ -1,1 +1,1 @@
-# Gemma's MVP: wild boar tracker
+# MVP: wild boar tracker
