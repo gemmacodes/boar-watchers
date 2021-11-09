@@ -29,10 +29,12 @@ router.get('/:id', async function(req, res, next) {
 router.post("/", async function(req, res, next) {
   try {
     const { timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = req.body
+    console.log("I am in the backend: ", timestamp);
     await db(
       `INSERT INTO sightings (timestamp, latitude, longitude, adults, piglets, humanInteraction, comments) VALUES ("${timestamp}", "${latitude}", "${longitude}", "${adults}", "${piglets}", "${humanInteraction}", "${comments}");` 
     );
-    res.status(201).send("New sighting has been added correctly!"); 
+    const results = await db(`SELECT * FROM sightings;`);
+    res.status(201).send(results.data);
   } catch (err) {
     res.status(500).send(err);
   }

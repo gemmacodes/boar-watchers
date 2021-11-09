@@ -12,7 +12,7 @@ export default function App() {
       .then(res => res.json())
       .then(json => {
         // THEN SET STATE
-        // upon success, update tasks (NOT FINISHED)
+        // upon success, update tasks
         // console.log(json);
         setSightings(json);
       })
@@ -29,12 +29,35 @@ export default function App() {
 
   const getGeolocation = () => {
     // Get geolocation data
+    console.log("Am I here?");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function(position) {
-          setNewSighting(state => ({...state, timestamp: position.timestamp, latitude: position.coords.latitude, longitude: position.coords.longitude}))
-        }
-      );
+
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          // turn UNIX timestamp to SQL timestamp
+          const date = new Date(position.timestamp);
+          const hours = date.getHours(),
+              minutes = date.getMinutes(),
+              seconds = date.getSeconds(),
+              month = date.getMonth() + 1,
+              day = date.getDate(),
+              year = date.getFullYear();
+
+          function pad(date) {return (date < 10 ? "0" : "") + date;}
+
+          const formattedDate = 
+                pad(year) + "-" 
+              + pad(month) + "-" 
+              + pad(day) + " " 
+              + pad(hours) + ":"
+              + pad(minutes) + ":"
+              + pad(seconds);
+
+            setNewSighting(state => ({...state, timestamp: formattedDate, latitude: latitude, longitude: longitude}))
+        })
     } else {
       console.log("Geolocation not available. Please allow geolocation in your browser");
     }
@@ -48,9 +71,9 @@ export default function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    getGeolocation();
-    console.log(newSighting)
-    addSighting(newSighting);
+    getGeolocation(); // gets latitude, longitude & timestamp (so sewSighting is a complete object)
+
+    addSighting(newSighting); // pushes newSighting to DB
 
   }
 
