@@ -1,19 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NewEntry from "./components/newEntry";
-import SightingsMap from "./components/sightingsMap";
+import { Link } from "react-router-dom";
 
 
 export default function App() {
     return (
         <div>
-        <BrowserRouter>
-            <Routes>
-            <Route path="/" element={<index />}/>
-            <Route path="/new" element={<NewEntry />}/>
-            <Route path="/map" element={<SightingsMap />}/>
-            </Routes>
-        </BrowserRouter>
+            <div>
+                <h3>Boar Watchers</h3>
+                <nav
+                    style={{
+                    borderBottom: "solid 1px",
+                    paddingBottom: "1rem"
+                    }}
+                >
+                    <Link to="/new">Report new sighting</Link> |{" "}
+                    <Link to="/map">See all sightings</Link>
+                </nav>
+            </div>
         </div>
     )
 }

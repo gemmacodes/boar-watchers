@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import PositionMap from "./positionMap";
-import SightingsMap from "./sightingsMap";
+import { usePosition } from './usePosition';
+import FormatTimestamp from "./formatTimestamp";
+import { Link } from "react-router-dom";
 
 
 
 export default function NewEntry() {
   const [sightings, setSightings] = useState([]);
-  const [newSighting, setNewSighting] = useState({timestamp: "", latitude: 0, longitude: 0, adults: 0, piglets: 0, humanInteraction: 0, comments: ""})
   const [error, setError] = useState(null);
+  const {lat, long} = usePosition();
+  
+  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 0, longitude: 0, adults: 0, piglets: 0, humanInteraction: 0, comments: ""})
+  
   const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = newSighting;
+  
   useEffect(() => {
     fetch("/sightings")
       .then(res => res.json())
       .then(json => {
         // upon success, update tasks
         setSightings(json);
-        getGeolocation();
+        // getGeolocation();
       })
       .catch(error => {
         // upon failure, show error message
@@ -29,52 +35,6 @@ export default function NewEntry() {
     const { value, name } = e.target;
     setNewSighting(state => ({...state, [name]: value})) 
   }
-
-// GETTING USER INPUTS INTO newSighting OBJECT
-  // const handleLocation = (e) => {
-  //   const { value, name } = e.target;
-  //   setNewSighting(state => ({...state, [name]: value})) 
-  // }
-
-
-// GETTING GEOLOCATION DATA
-  const getGeolocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(successGettingLocation, errorGettingLocation, {timeout: 5000});
-    } else {
-      console.log("Geolocation not available.");
-    }
-  }
-
-  function successGettingLocation(position) {
-    // convert UNIX timestamp to SQL timestamp
-    const date = new Date(position.timestamp);
-          const hours = date.getHours(),
-              minutes = date.getMinutes(),
-              seconds = date.getSeconds(),
-              month = date.getMonth() + 1,
-              day = date.getDate(),
-              year = date.getFullYear();
-
-    function pad(date) {return (date < 10 ? "0" : "") + date;}
-    const formattedDate = pad(year) + "-" + pad(month) + "-" + pad(day) + " " + pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-
-    setNewSighting(state => ({...state, timestamp: formattedDate, latitude: position.coords.latitude, longitude: position.coords.longitude}))
-  }
-
-  function errorGettingLocation(error) {
-    switch (error.code) {
-      case 1: setError("You've decided not to share your position, but it's OK. We won't ask you again.");
-      break;
-      case 2: setError("The network is down or the positioning service can't be reached.");
-      break;
-      case 3: setError("The attempt timed out before it could get the location data.");
-      break;
-      default: setError("Geolocation failed due to unknown error.");
-      break;
-    }
-  }
-
 
 // COMPLETES newSighting OBJECT AND CALLS addSighting
   const handleSubmit = (e) => {
@@ -107,55 +67,51 @@ export default function NewEntry() {
       </header>
 
     <div className="container">
+      <div className="container mt-4">
+          <nav
+              style={{
+              borderBottom: "solid 1px",
+              paddingBottom: "1rem",
+              textAlign: "right"
+              }}
+          >
+              <Link to="/">Home</Link> |{" "}
+              <Link to="/map">See all sightings</Link>
+          </nav>
+      </div>
   
-      <div className="d-flex flex-column justify-content-between">
+      <div className="d-flex flex-column justify-content-between mt-4">
 
         <h3>New sighting</h3>
+  
   {/* MAP RENDER */}
         <div>
-          {(latitude && longitude) ? PositionMap(latitude, longitude) : "Loading map..."}
+          {(lat && long) ? PositionMap(lat, long) : "Loading map..."}
         </div>
-        
-        {/* OTHER MAPS */}
-        {/* <div className="container">{SightingsMap(sightings)}</div> */}
-        {/* <div className="container">
-              <Map provider={stamenTerrain} height={300} defaultCenter={[41.4118, 2.1082]} defaultZoom={13}>
-              {sightings.map(sighting => (<Marker width={30} key={sighting.id} anchor={[sighting.latitude, sighting.longitude]} color="red"/>))}
-              <ZoomControl />
-              </Map>
-            </div> */}
 
   {/* FORM */}
+  <code>
+      latitude: {lat}<br/>
+      longitude: {long}<br/>
+  </code>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <div class="flex-col">
-              <input className="form-control" value={+latitude} placeholder="Latitude" onChange={handleChange}/>
+              <input className="form-control" name="latitude" value={latitude} type="number" onChange={handleChange}/>
             </div>
             <div class="flex-col">
-              <input className="form-control" value={+longitude} placeholder="Longitude" onChange={handleChange}/> 
+              <input className="form-control" name="longitude" value={longitude} type="number" onChange={handleChange}/> 
             </div>
           </div>
           <div className="form-group">
             <label className="form-control" for="adults">How many adults?
-              <select name="adults" value={+adults} onChange={handleChange} className="form-select form-select-sm">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">More than 3</option>
-              </select>
+              <input name="adults" value={+adults} type="number" onChange={handleChange} className="form-control"/>
             </label>
           </div>
 
           <div className="form-group">
             <label className="form-control" for="piglets">How many piglets?
-              <select name="piglets" value={+piglets}  onChange={handleChange} className="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">More than 3</option>
-              </select>
+              <input name="piglets" value={+piglets} type="number" onChange={handleChange} className="form-control"/>
             </label>
           </div>
 
@@ -188,10 +144,7 @@ export default function NewEntry() {
         </form>
         
         <div>{error && error}</div>
-    
 
-
-    
     </div>
   </div>
   </div>

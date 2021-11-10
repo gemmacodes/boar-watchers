@@ -1,9 +1,5 @@
-import React from 'react'
-
-export default function Geolocation(position) {
-
 // GETTING GEOLOCATION DATA
-  const getGeolocation = () => {
+const getGeolocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(successGettingLocation, errorGettingLocation, {timeout: 5000});
     } else {
@@ -22,11 +18,9 @@ export default function Geolocation(position) {
               year = date.getFullYear();
 
     function pad(date) {return (date < 10 ? "0" : "") + date;}
-    
     const formattedDate = pad(year) + "-" + pad(month) + "-" + pad(day) + " " + pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-    const location = {timestamp: formattedDate, latitude: position.coords.latitude, longitude: position.coords.longitude}
-    
-    return location
+
+    setNewSighting(state => ({...state, timestamp: formattedDate, latitude: position.coords.latitude, longitude: position.coords.longitude}))
   }
 
   function errorGettingLocation(error) {
@@ -41,10 +35,3 @@ export default function Geolocation(position) {
       break;
     }
   }
-
-    return (
-        <div>
-
-        </div>
-    )
-}
