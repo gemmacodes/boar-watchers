@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PositionMap from "./positionMap";
+import Map from "./reactMapGL"
 import { usePosition } from './usePosition';
 import FormatTimestamp from "./formatTimestamp";
 import { Link } from "react-router-dom";
@@ -87,7 +87,7 @@ export default function NewEntry() {
   
   {/* MAP RENDER */}
         <div>
-          {(lat && long) ? PositionMap(lat, long) : "Loading map..."}
+          {(lat && long) ? <Map /> : "Loading map..."}
         </div>
 
   {/* FORM */}

@@ -1,55 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { Map, Marker, ZoomControl } from "pigeon-maps"
+import { stamenTerrain } from 'pigeon-maps/providers'
 import { Link } from "react-router-dom";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
-import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
-import Pin from './pin';
 
-
-
-export default function SightingsMap() {
-
-  const geolocateStyle = {
-    float: 'left',
-    margin: '50px',
-    padding: '10px'
-  };
-  
-  const navStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    padding: '10px'
-  };
-
-  // set map base canvas
-  const [viewport, setViewport ] = useState({
-    width: "100%",
-    height: 300,
-    latitude: 41.414,
-    longitude: 2.12533,
-    zoom: 12
-  })
-
+export function SightingsMap() {
   const [sightings, setSightings] = useState([]);
 
   useEffect(() => {
     fetch("/sightings")
       .then(res => res.json())
       .then(json => {
+        // upon success, update tasks
         setSightings(json);
       })
       .catch(error => {
+        // upon failure, show error message
         console.log(error.message);
       });
   }, []); 
 
-
   return (
     <div className="container">
+  
   {/* NAVBAR */}
-    <div className="container mt-4">
+      <div className="container mt-4">
         <nav
             style={{
             borderBottom: "solid 1px",
@@ -62,38 +38,12 @@ export default function SightingsMap() {
         </nav>
       </div>
 
-      <div style={{ margin: '0 auto'}}>
-      <h3>All sightings</h3>
-
-      <MapGL
-        {...viewport}
-        mapboxApiAccessToken={"pk.eyJ1Ijoic3dpdGNoZXJldHRlIiwiYSI6ImNrdnRibXZocDNib3Eyb3RrN3IweDJ5N2cifQ.WDHMD5bo0qcahirCdlT0-A"}
-        mapStyle="mapbox://styles/mapbox/outdoors-v11"
-        onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
-       >
-        {sightings.map(sighting => (
-          <Marker
-            longitude={sighting.longitude}
-            latitude={sighting.latitude}
-            offsetTop={-20}
-            offsetLeft={-10}
-            key={sighting.id}
-          >
-            <Pin size={20} />
-          </Marker>
-        ))}
-
-        <GeolocateControl
-          style={geolocateStyle}
-          positionOptions={{enableHighAccuracy: true}}
-          trackUserLocation={true}
-         />
-
-        <div className="nav" style={navStyle}>
-          <NavigationControl />
-        </div>
-
-      </MapGL>
+      <div className="d-flex flex-column justify-content-between my-4">
+        <h3>All sightings</h3>
+        <Map provider={stamenTerrain} height={500} defaultCenter={[41.4118, 2.1082]} defaultZoom={13}>
+        {sightings.map(sighting => (<Marker width={30} key={sighting.id} anchor={[sighting.latitude, sighting.longitude]} color="red"/>))}
+        <ZoomControl />
+        </Map>
       </div>
 
       <div>
@@ -125,9 +75,10 @@ export default function SightingsMap() {
               </Tbody>
             </Table>
       </div>
-
     </div>
   )
 }
+
+export default SightingsMap;
 
 
