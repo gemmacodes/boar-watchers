@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-import Home from "./components/Home";
+import NewEntry from "./components/newEntry";
+import SightingsMap from "./components/sightingsMap";
+
 
 export default function App() {
     return (
         <div>
         <BrowserRouter>
             <Routes>
-            <Route path="/" element={<Home />}/>
+            <Route path="/" element={<index />}/>
+            <Route path="/new" element={<NewEntry />}/>
+            <Route path="/map" element={<SightingsMap />}/>
             </Routes>
         </BrowserRouter>
         </div>
