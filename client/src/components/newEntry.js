@@ -11,7 +11,7 @@ export default function NewEntry() {
   const [error, setError] = useState(null);
   const {lat, long} = usePosition();
   
-  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 0, longitude: 0, adults: 0, piglets: 0, humanInteraction: 0, comments: ""})
+  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 0, longitude: 0, adults: 0, piglets: 0, humanInteraction: 0, comments: " "})
   
   const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = newSighting;
   
@@ -66,6 +66,7 @@ export default function NewEntry() {
       <header className="App-header">
       </header>
 
+{/* NAVBAR */}
     <div className="container">
       <div className="container mt-4">
           <nav
