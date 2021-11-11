@@ -1,23 +1,22 @@
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import React, { useState, useCallback } from 'react'
-import Pin from './pin';
-import './Map.css';
+import './map.css';
 
 const geolocateStyle = {
-  float: 'left',
+  float: 'right',
   margin: '50px',
   padding: '10px'
 };
 
 const navStyle = {
-  position: 'absolute',
+  position: "absolute",
   top: 0,
   left: 0,
   padding: '10px'
 };
 
-const Map = () => {
+const Map = (props) => {
   // set map base canvas
   const [viewport, setViewport ] = useState({
     width: "100%",
@@ -32,7 +31,7 @@ const Map = () => {
     longitude: 2.12533
   });
 
-  // these 3 functions make the marker draggable. Taken from react-map-gl documentation examples. 
+  // these  const & 3 functions make the marker draggable. Taken from react-map-gl documentation examples. 
   const [events, logEvents] = useState({});
   
   const onMarkerDragStart = useCallback(event => {
@@ -49,22 +48,26 @@ const Map = () => {
       longitude: event.lngLat[0],
       latitude: event.lngLat[1]
     });
+    // marker coordinates are sent to parent node (newEntry)
+    props.getMarkerCoordinates(event.lngLat[1], event.lngLat[0]);
   }, []);
 
-  // updates marker position after dragging (takes event coordinates)
-  const updateMarker = (event) => {
+  // updates marker position after dragging (takes event coordinates) 
+  const MarkerOnGeolocate = (event) => {
     console.log(event)
     setMarker({
       longitude: event.coords.longitude,
       latitude: event.coords.latitude
     });
-    
+    // marker coordinates are sent to parent node (newEntry)
+    props.getMarkerCoordinates(event.coords.latitude, event.coords.longitude);
   };
 
+  
 
   return (
     <div style={{ margin: '0 auto'}}>
-      <p className="text-primary">Drag the red marker or click the Geolocator button to find your location</p>
+      <p className="text-primary">Drag the little boar to or click on the Geolocator button to set it on your location</p>
 
       <MapGL
         {...viewport}
@@ -83,17 +86,16 @@ const Map = () => {
           onDragEnd={onMarkerDragEnd}
           className="marker"
         >
-          {/* <Pin size={20} /> */}
         </Marker>
 
         <GeolocateControl
-          style={geolocateStyle}
+          style = {geolocateStyle}
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-          onGeolocate={updateMarker}
+          onGeolocate={MarkerOnGeolocate}
          />
 
-        <div className="nav" style={navStyle}>
+        <div className="nav" style = {navStyle}>
           <NavigationControl />
         </div>
 

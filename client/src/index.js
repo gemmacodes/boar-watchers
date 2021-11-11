@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NewEntry from "./components/newEntry";
 import SightingsMap from "./components/sightingsMap";
-import Map from "./components/reactMapGL"
+import Map from "./components/newEntryMap"
 
 ReactDOM.render(
   <React.StrictMode>

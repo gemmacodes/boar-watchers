@@ -1,45 +1,44 @@
 import React, { useEffect, useState } from "react";
-import Map from "./reactMapGL"
-import { usePosition } from './usePosition';
+import Map from "./newEntryMap"
 import FormatTimestamp from "./formatTimestamp";
 import { Link } from "react-router-dom";
-
 
 
 export default function NewEntry() {
   const [sightings, setSightings] = useState([]);
   const [error, setError] = useState(null);
-  const {lat, long} = usePosition();
   
   const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 0, longitude: 0, adults: 0, piglets: 0, humanInteraction: 0, comments: " "})
-  
   const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = newSighting;
   
+// LOADS DB INFO INTO sightings ARRAY
   useEffect(() => {
     fetch("/sightings")
       .then(res => res.json())
       .then(json => {
-        // upon success, update tasks
         setSightings(json);
-        // getGeolocation();
       })
       .catch(error => {
-        // upon failure, show error message
         console.log(error.message);
       });
   }, []); 
 
 
-// GETTING USER INPUTS INTO newSighting OBJECT
+// GETS USER INPUTS INTO newSighting OBJECT
   const handleChange = (e) => {
     const { value, name } = e.target;
     setNewSighting(state => ({...state, [name]: value})) 
   }
 
+// GETS GEOLOC INPUTS INTO newSighting OBJECT
+  const handleCoordinates = (lat, long) => {
+    setNewSighting(state => ({...state, latitude: lat, longitude: long})) 
+  }
+
 // COMPLETES newSighting OBJECT AND CALLS addSighting
   const handleSubmit = (e) => {
     e.preventDefault();
-    addSighting(newSighting); // pushes newSighting to DB
+    addSighting(newSighting); // function that 'pushes' newSighting to DB
   }
 
 // ADDS SIGHTING INFO TO DB
@@ -53,14 +52,13 @@ export default function NewEntry() {
         body: JSON.stringify(newSighting),
       });
       const data = await res.json();
-      setSightings(data);
+      setSightings(data); // sightings array gets updated as well (so I do not need to reload page)
     } catch (err) {
       setError(err);
     }
   };
 
-
-// TEMPLATE
+// HTML TEMPLATE
   return (
     <div className="App">
       <header className="App-header">
@@ -85,25 +83,24 @@ export default function NewEntry() {
 
         <h3>New sighting</h3>
   
-  {/* MAP RENDER */}
+  {/* MAP RENDER: Map only loads when latitude & longitude are available */}
         <div>
-          {(lat && long) ? <Map /> : "Loading map..."}
+          <Map getMarkerCoordinates={(lat, long)=> handleCoordinates(lat, long)}/>
         </div>
 
-  {/* FORM */}
-  <code>
-      latitude: {lat}<br/>
-      longitude: {long}<br/>
-  </code>
+  {/* USER INPUT FORM */}
+  <p className="text-muted">
+      Latitude: {latitude} | Longitude: {longitude}<br/>
+  </p>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <div class="flex-col">
+          {/* <div className="form-group">
+            <div className="flex-col">
               <input className="form-control" name="latitude" value={latitude} type="number" onChange={handleChange}/>
             </div>
-            <div class="flex-col">
+            <div className="flex-col">
               <input className="form-control" name="longitude" value={longitude} type="number" onChange={handleChange}/> 
             </div>
-          </div>
+          </div> */}
           <div className="form-group">
             <label className="form-control" for="adults">How many adults?
               <input name="adults" value={+adults} type="number" onChange={handleChange} className="form-control"/>
@@ -125,16 +122,6 @@ export default function NewEntry() {
             </label>
           </div>
 
-          {/* Review after learning about checkboxes:
-          <div className="form-check">
-            <label className="form-check-label" >
-              Is it interacting with people?
-            <input name="humanInteraction" value={humanInteraction} onChange={handleChange} className="form-check-input" type="checkbox" id="flexCheckDefault"/>
-            <label className="form-check-label" >
-              Is it interacting with people?
-            </label>
-          </div> */}
-
           <div className="form-group">
             <label className="form-control" for="comments">Other relevant information
               <textarea name="comments" value={comments} onChange={handleChange} className="form-control" aria-label="textarea" placeholder="Any comments?"></textarea>
@@ -143,7 +130,8 @@ export default function NewEntry() {
 
           <button className="btn btn-primary" disabled={(timestamp === "")}>Submit</button>
         </form>
-        
+
+        {/* if there is an error, show it here*/}
         <div>{error && error}</div>
 
     </div>

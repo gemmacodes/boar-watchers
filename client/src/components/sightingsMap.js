@@ -4,8 +4,7 @@ import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Pin from './pin';
-import './Map.css';
+import './map.css';
 
 
 
@@ -19,8 +18,8 @@ export default function SightingsMap() {
   
   const navStyle = {
     position: 'absolute',
-    top: 0,
-    left: 0,
+    left: 10,
+    top: 10,
     padding: '10px'
   };
 
@@ -33,13 +32,13 @@ export default function SightingsMap() {
     zoom: 12
   })
 
-  const [sightings, setSightings] = useState([]);
+  const [allSightings, setAllSightings] = useState([]);
 
   useEffect(() => {
     fetch("/sightings")
       .then(res => res.json())
       .then(json => {
-        setSightings(json);
+        setAllSightings(json);
       })
       .catch(error => {
         console.log(error.message);
@@ -72,7 +71,7 @@ export default function SightingsMap() {
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
-        {sightings.map(sighting => (
+        {allSightings.map(sighting => (
           <Marker
             longitude={sighting.longitude}
             latitude={sighting.latitude}
@@ -81,7 +80,6 @@ export default function SightingsMap() {
             key={sighting.id}
             className="marker"
           >
-            {/* <Pin size={20} /> */}
           </Marker>
         ))}
 
@@ -112,7 +110,7 @@ export default function SightingsMap() {
                 </Tr>
               </Thead>
               <Tbody>
-                {sightings.map(sighting => {
+                {allSightings.map(sighting => {
                   return (
                     <Tr>
                       <Td>{(sighting.timestamp).slice(0, 10)}</Td>
