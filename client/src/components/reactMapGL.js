@@ -2,6 +2,7 @@ import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl
 import 'mapbox-gl/dist/mapbox-gl.css'
 import React, { useState, useCallback } from 'react'
 import Pin from './pin';
+import './Map.css';
 
 const geolocateStyle = {
   float: 'left',
@@ -80,8 +81,9 @@ const Map = () => {
           onDragStart={onMarkerDragStart}
           onDrag={onMarkerDrag}
           onDragEnd={onMarkerDragEnd}
+          className="marker"
         >
-          <Pin size={20} />
+          {/* <Pin size={20} /> */}
         </Marker>
 
         <GeolocateControl

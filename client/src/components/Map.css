@@ -1,0 +1,8 @@
+.marker {
+    background-image: url('https://emojigraph.org/media/softbank/boar_1f417.png');
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+  }

@@ -5,6 +5,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Pin from './pin';
+import './Map.css';
 
 
 
@@ -78,8 +79,9 @@ export default function SightingsMap() {
             offsetTop={-20}
             offsetLeft={-10}
             key={sighting.id}
+            className="marker"
           >
-            <Pin size={20} />
+            {/* <Pin size={20} /> */}
           </Marker>
         ))}
 
