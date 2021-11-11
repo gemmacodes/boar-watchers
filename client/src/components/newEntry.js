@@ -65,20 +65,16 @@ export default function NewEntry() {
       </header>
 
 {/* NAVBAR */}
-    <div className="container">
-      <div className="container mt-4">
-          <nav
-              style={{
-              borderBottom: "solid 1px",
-              paddingBottom: "1rem",
-              textAlign: "right"
-              }}
-          >
-              <Link to="/">Home</Link> |{" "}
-              <Link to="/map">See all sightings</Link>
-          </nav>
+    <nav className="navbar navbar-dark bg-dark">
+      <div className="container">
+        <div className="d-flex align-items-end">
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/map">See all sightings</Link>
+        </div>
       </div>
-  
+    </nav>
+
+    <div className="container">
       <div className="d-flex flex-column justify-content-between mt-4">
 
         <h3>New sighting</h3>
@@ -128,7 +124,7 @@ export default function NewEntry() {
             </label>
           </div>
 
-          <button className="btn btn-primary" disabled={(timestamp === "")}>Submit</button>
+          <button className="btn btn-primary" disabled={(latitude === 0)}>Submit</button>
         </form>
 
         {/* if there is an error, show it here*/}

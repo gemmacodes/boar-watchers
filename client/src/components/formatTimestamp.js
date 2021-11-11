@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function FormatTimestamp(date) {
     // convert UNIX timestamp to SQL timestamp
     const hours = date.getHours(),

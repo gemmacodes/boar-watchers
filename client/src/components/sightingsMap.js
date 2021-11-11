@@ -5,6 +5,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css';
+import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
 
 
 
@@ -33,18 +34,19 @@ export default function SightingsMap() {
   })
 
   const [allSightings, setAllSightings] = useState([]);
+  const [filteredSightings, setFilteredSightings] = useState([]);
 
   useEffect(() => {
     fetch("/sightings")
       .then(res => res.json())
       .then(json => {
         setAllSightings(json);
+        setFilteredSightings(json);
       })
       .catch(error => {
         console.log(error.message);
       });
   }, []); 
-
 
   return (
     <div className="container">
@@ -71,7 +73,7 @@ export default function SightingsMap() {
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
-        {allSightings.map(sighting => (
+        {filteredSightings.map(sighting => (
           <Marker
             longitude={sighting.longitude}
             latitude={sighting.latitude}
@@ -98,6 +100,7 @@ export default function SightingsMap() {
 
       <div>
         <h3>Sighting details</h3>
+        <input className="form-control"/>
         <Table className="table">
               <Thead>
                 <Tr>
@@ -110,14 +113,14 @@ export default function SightingsMap() {
                 </Tr>
               </Thead>
               <Tbody>
-                {allSightings.map(sighting => {
+                {filteredSightings.map(sighting => {
                   return (
                     <Tr>
                       <Td>{(sighting.timestamp).slice(0, 10)}</Td>
                       <Td><a href={`https://www.openstreetmap.org/#map=19/${sighting.latitude}/${sighting.longitude}`}>{`${sighting.latitude}, ${sighting.longitude}`}</a></Td>
                       <Td>{sighting.adults}</Td>
                       <Td>{sighting.piglets}</Td>
-                      <Td>{sighting.humanInteraction}</Td>
+                      <Td>{sighting.humanInteraction === 0 ? "NO" : "YES"}</Td>
                       <Td>{sighting.comments}</Td>
                     </Tr>
                   );
