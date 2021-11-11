@@ -13,6 +13,18 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+/* GET sightings for a specific month. */
+router.get('/timerange/:year/:month', async function(req, res, next) {
+  try{
+    const { month, year } = req.params;
+    const results = await db(`SELECT * FROM sightings WHERE MONTHNAME(timestamp)="${month}" AND YEAR(timestamp)="${year}";`)
+    res.send(results.data);
+  }
+  catch(err){
+    res.status(500).send(err);
+  }
+});
+
 /* GET one sighting. */
 router.get('/:id', async function(req, res, next) {
   try{
@@ -60,7 +72,7 @@ router.delete("/:id", async function(req, res, next) {
     const { id } = req.params;
     await db(`DELETE FROM sightings WHERE id = "${id}";`);
     const result = await db("SELECT * FROM sightings");
-    res.status(201).send(`Sighting with ID #"${id}" has been deleted correctly!`); 
+    res.status(201).send(result.data); 
   } catch (err) {
     res.status(500).send(err);
   }

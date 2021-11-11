@@ -4,5 +4,4 @@
 /node_modules
 /dist
 .env
-/client/
 .DS_Store
