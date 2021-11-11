@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css';
-import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
-
 
 
 export default function SightingsMap() {
@@ -50,22 +46,7 @@ export default function SightingsMap() {
 
   return (
     <div className="container">
-  {/* NAVBAR */}
-    <div className="container mt-4">
-        <nav
-            style={{
-            borderBottom: "solid 1px",
-            paddingBottom: "1rem",
-            textAlign: "right"
-            }}
-        >
-            <Link to="/">Home</Link> |{" "}
-            <Link to="/new">Add new sightings</Link>
-        </nav>
-      </div>
-
       <div style={{ margin: '0 auto'}}>
-      <h3>All sightings</h3>
 
       <MapGL
         {...viewport}
@@ -96,37 +77,6 @@ export default function SightingsMap() {
         </div>
 
       </MapGL>
-      </div>
-
-      <div>
-        <h3>Sighting details</h3>
-        <input className="form-control"/>
-        <Table className="table">
-              <Thead>
-                <Tr>
-                  <Th scope="col">Date</Th>
-                  <Th scope="col">Location</Th>
-                  <Th scope="col">Adults</Th>
-                  <Th scope="col">Piglets</Th>
-                  <Th scope="col">Interacting</Th>
-                  <Th scope="col">Comments</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {filteredSightings.map(sighting => {
-                  return (
-                    <Tr>
-                      <Td>{(sighting.timestamp).slice(0, 10)}</Td>
-                      <Td><a href={`https://www.openstreetmap.org/#map=19/${sighting.latitude}/${sighting.longitude}`}>{`${sighting.latitude}, ${sighting.longitude}`}</a></Td>
-                      <Td>{sighting.adults}</Td>
-                      <Td>{sighting.piglets}</Td>
-                      <Td>{sighting.humanInteraction === 0 ? "NO" : "YES"}</Td>
-                      <Td>{sighting.comments}</Td>
-                    </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
       </div>
 
     </div>

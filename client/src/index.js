@@ -7,6 +7,7 @@ import NewEntry from "./components/newEntry";
 import SightingsMap from "./components/sightingsMap";
 import Map from "./components/newEntryMap"
 import SightingsTable from "./components/sightingsTable"
+import AllSightings from './components/allSightings';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App/>}/>
         <Route path="/new" element={<NewEntry />}/>
+        <Route path="/all" element={<AllSightings />}/>
         <Route path="/map" element={<SightingsMap />}/>
         <Route path="/table" element={<SightingsTable />}/>
         <Route path="/GLmap" element={<Map />}/>

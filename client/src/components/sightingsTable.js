@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
-export default function SightingsTable(props) {
+export default function SightingsTable() {
 
   const [sortedSightings, setSortedSightings] = useState([]);
 	const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = sortedSightings;
@@ -89,7 +89,6 @@ export default function SightingsTable(props) {
 
   {/* TABLE     */}
       <div>
-        <h3>Sighting details</h3>
         <form>
             <label className="form-control">Select month
                 <select className="form-control" name="month" value={month}  onChange={handleChange}>
@@ -151,7 +150,6 @@ export default function SightingsTable(props) {
               </Tbody>
             </Table>
       </div>
-
     </div>
   )
 }
