@@ -53,62 +53,67 @@ export default function AllSightings() {
   };
 
   return (
-    <div className="container">
+    <div>
   {/* NAVBAR */}
-      <div className="container mt-4">
-        <nav
-          style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-          textAlign: "right"
-          }}
-      >
-          <Link to="/">Home</Link> |{" "}
-          <Link to="/new">Add new sightings</Link>
+      <div>
+        <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+          <div className="container">
+            <Link to="/" className="nav-item nav-link text-white p-2">Home</Link> |{" "}
+            <Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link> |{" "}
+            <Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link>
+          </div>
         </nav>
       </div>
 
   {/* USER INPUT FORM */}
-      <div>
-        <form>
-          <label className="form-control">Select month
-            <select className="form-control" name="month" value={month}  onChange={handleChange}>
-              <option value="" selected>Select month</option>
-              <option value="january">January</option>
-              <option value="february">February</option>
-              <option value="march">March</option>
-              <option value="april">April</option>
-              <option value="may">May</option>
-              <option value="june">June</option>
-              <option value="july">July</option>
-              <option value="august">August</option>
-              <option value="september">September</option>
-              <option value="october">October</option>
-              <option value="november">November</option>
-              <option value="december">December</option>
-            </select> 
-          </label>
-          <label className="form-control">Select year
-            <select className="form-control" name="year" value={year} onChange={handleChange}>
-              <option value="" selected>Select year</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select> 
-          </label>
-          <button className="btn btn-primary" onClick={(e)=>submitTimerange(e)}>Filter</button>
-        </form> 
+      <div className="container my-4">
+      <h2 className="mb-4">Control panel</h2>
+      <h3>Sightings by month</h3>
+      <p className="text-muted">If no month is selected, the map and table will show all time sightings.</p>
+        <form className="form-inline">
+          <div class="row">
+            <div class="col col-sm">
+              <select className="form-control" name="month" value={month}  onChange={handleChange}>
+                <option value="" selected>Select month</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select> 
+            </div>
+
+            <div class="col col-sm">
+              <select className="form-control" name="year" value={year} onChange={handleChange}>
+                <option value="" selected>Select year</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+              </select> 
+            </div>
+          
+            <div className="col col-sm">
+              <button className="btn btn-primary" onClick={(e)=>submitTimerange(e)}>Filter</button>
+            </div>
+            </div>
+          </form> 
       </div>
 
   {/* MAP COMPONENT */}
-      <div style={{ margin: '0 auto'}}>
-        <h3>All sightings</h3>
-        <SightingsMap test={filteredSightings}/> 
+      <div className="container mb-4">
+        <SightingsMap props={filteredSightings}/> 
       </div>
 
   {/* TABLE COMPONENT */}
-      <div>
+      <div className="container mb-4">
         <h3>Sighting details</h3>
-        <SightingsTable test={filteredSightings}/>
+        <SightingsTable props={filteredSightings}/>
       </div>
 
     </div>

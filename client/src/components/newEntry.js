@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import Map from "./newEntryMap"
 import FormatTimestamp from "./formatTimestamp";
 import { Link } from "react-router-dom";
+import Noty from 'noty';
+import './map.css';
 
 
 export default function NewEntry() {
-  const [sightings, setSightings] = useState([]);
+  const [sightings, setSightings] = useState([]); 
   const [error, setError] = useState(null);
-  
-  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 0, longitude: 0, adults: 0, piglets: 0, humanInteraction: 0, comments: " "})
+  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 41.414, longitude: 2.12533, adults: 0, piglets: 0, humanInteraction: 0, comments: " "})
   const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = newSighting;
   
 // LOADS DB INFO INTO sightings ARRAY
@@ -39,6 +40,7 @@ export default function NewEntry() {
   const handleSubmit = (e) => {
     e.preventDefault();
     addSighting(newSighting); // function that 'pushes' newSighting to DB
+    setNewSighting(state => ({...state, adults: 0, piglets: 0, humanInteraction: 0, comments: " "})) 
   }
 
 // ADDS SIGHTING INFO TO DB
@@ -53,6 +55,14 @@ export default function NewEntry() {
       });
       const data = await res.json();
       setSightings(data); // sightings array gets updated as well (so I do not need to reload page)
+      new Noty({
+        theme: 'semanticui',
+        type: 'success',
+        layout: 'topRight',
+        text: 'Your sighting has been added correctly!',
+        timeout: 2000
+      }).show();
+
     } catch (err) {
       setError(err);
     }
@@ -60,19 +70,17 @@ export default function NewEntry() {
 
 // HTML TEMPLATE
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-
-{/* NAVBAR */}
-    <nav className="navbar navbar-dark bg-dark">
-      <div className="container">
-        <div className="d-flex align-items-end">
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/map">See all sightings</Link>
-        </div>
+    <div>
+  
+      <div>
+        <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+          <div className="container">
+            <Link to="/" className="nav-item nav-link text-white p-2">Home</Link> |{" "}
+            <Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link> |{" "}
+            <Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link>
+          </div>
+        </nav>
       </div>
-    </nav>
 
     <div className="container">
       <div className="d-flex flex-column justify-content-between mt-4">
@@ -89,14 +97,6 @@ export default function NewEntry() {
       Latitude: {latitude} | Longitude: {longitude}<br/>
   </p>
         <form onSubmit={handleSubmit}>
-          {/* <div className="form-group">
-            <div className="flex-col">
-              <input className="form-control" name="latitude" value={latitude} type="number" onChange={handleChange}/>
-            </div>
-            <div className="flex-col">
-              <input className="form-control" name="longitude" value={longitude} type="number" onChange={handleChange}/> 
-            </div>
-          </div> */}
           <div className="form-group">
             <label className="form-control" for="adults">How many adults?
               <input name="adults" value={+adults} type="number" onChange={handleChange} className="form-control"/>
