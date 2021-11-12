@@ -67,6 +67,13 @@ export default function NewEntry() {
 
     } catch (err) {
       setError(err);
+      new Noty({
+        theme: 'semanticui',
+        type: 'error',
+        layout: 'topRight',
+        text: 'Ouch! Something went wrong. Try again!',
+        timeout: 2000
+      }).show();
     }
   };
 
@@ -84,56 +91,56 @@ export default function NewEntry() {
         </nav>
       </div>
 
-    <div className="container">
-      <div className="d-flex flex-column justify-content-between mt-4">
+    <div className="container mt-4">
+        <h3 className="display-4 mb-5">New sighting</h3>
 
-        <h3>New sighting</h3>
-  
-  {/* MAP RENDER: Map only loads when latitude & longitude are available */}
-        <div>
-          <Map getMarkerCoordinates={(lat, long)=> handleCoordinates(lat, long)}/>
+        <div className="row d-flex">
+    {/* USER INPUT FORM */} 
+          <div className="col-sm">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group mb-3">
+                <label for="adults">How many adults?</label>
+                <input name="adults" value={+adults} type="number" min="0" onChange={handleChange} className="form-control"/>
+              </div>
+
+              <div className="form-group mb-3">
+                <label for="piglets">How many piglets?</label>
+                <input name="piglets" value={+piglets} type="number" min="0" onChange={handleChange} className="form-control"/>
+              </div>
+
+              <div className="form-group mb-3">
+                <label for="humanInteraction">Are they interacting with people?</label>
+                  <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option value="0">NO</option>
+                    <option value="1">YES</option>
+                  </select>
+              </div>
+
+              <div className="form-group mb-3">
+                <label for="comments">Is there any other relevant information?</label>
+                  <textarea name="comments" value={comments} onChange={handleChange} className="form-control" aria-label="textarea" placeholder="Any comments?"></textarea>
+              </div>
+
+              <button className="btn btn-dark mb-3 my-2" disabled={(latitude === 0)}>Submit</button>
+            </form>
+          </div>
+
+        {/* MAP RENDER: Map only loads when latitude & longitude are available */}
+          <div className="col-sm">
+            <Map getMarkerCoordinates={(lat, long)=> handleCoordinates(lat, long)}/>
+            <p className="text-muted">Latitude: {latitude} <br/> Longitude: {longitude}</p>
+          </div>
         </div>
+      </div>
 
-  {/* USER INPUT FORM */}
-  <p className="text-muted">
-      Latitude: {latitude} | Longitude: {longitude}<br/>
-  </p>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-control" for="adults">How many adults?
-              <input name="adults" value={+adults} type="number" onChange={handleChange} className="form-control"/>
-            </label>
-          </div>
+      <div className="row d-flex mt-5">
+      <div className="text-center mt-5">
+        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
+        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
+        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
+      </div>
+      </div>
 
-          <div className="form-group">
-            <label className="form-control" for="piglets">How many piglets?
-              <input name="piglets" value={+piglets} type="number" onChange={handleChange} className="form-control"/>
-            </label>
-          </div>
-
-          <div className="form-group">
-            <label className="form-control" for="humanInteraction">Are they interacting with people?
-              <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option value="0">NO</option>
-                <option value="1">YES</option>
-              </select>
-            </label>
-          </div>
-
-          <div className="form-group">
-            <label className="form-control" for="comments">Other relevant information
-              <textarea name="comments" value={comments} onChange={handleChange} className="form-control" aria-label="textarea" placeholder="Any comments?"></textarea>
-            </label>
-          </div>
-
-          <button className="btn btn-dark my-2" disabled={(latitude === 0)}>Submit</button>
-        </form>
-
-        {/* if there is an error, show it here*/}
-        <div>{error && error}</div>
-
-    </div>
-  </div>
   </div>
   );
 }

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SightingsTable from "./sightingsTable";
 import SightingsMap from "./sightingsMap";
+import Noty from 'noty';
+import "../../node_modules/noty/lib/themes/semanticui.css";
+import "../../node_modules/noty/lib/noty.css";
 
 
 export default function AllSightings() {
@@ -57,8 +60,22 @@ export default function AllSightings() {
       });
       const data = await res.json();
       setFilteredSightings(data);
+      new Noty({
+        theme: 'semanticui',
+        type: 'success',
+        layout: 'topRight',
+        text: 'Sighting deleted correctly!',
+        timeout: 2000
+      }).show();
     } catch (err) {
       console.log(err);
+      new Noty({
+        theme: 'semanticui',
+        type: 'error',
+        layout: 'topRight',
+        text: 'Ouch! Something went wrong. Try again!',
+        timeout: 2000
+      }).show();
     }
   };
 
@@ -67,7 +84,7 @@ export default function AllSightings() {
   {/* NAVBAR */}
       <div>
         <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-          <div className="container">
+          <div className="container align-items-center">
             <Link to="/" className="nav-item nav-link text-white p-2">Home</Link> |{" "}
             <Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link> |{" "}
             <Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link>
@@ -117,7 +134,7 @@ export default function AllSightings() {
 
   {/* MAP COMPONENT */}
       <div className="container mb-4">
-        <SightingsMap sightings={filteredSightings} deleteEntry={deleteEntry}/> 
+        <SightingsMap sightings={filteredSightings} height={300} deleteEntry={deleteEntry}/> 
       </div>
 
   {/* TABLE COMPONENT */}

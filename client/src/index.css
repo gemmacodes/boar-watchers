@@ -5,10 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: linear-gradient(-45deg, #FAF3F3, #E1E5EA, #A7BBC7, #DA7F8F);
+  background: linear-gradient(-45deg, #FAF3F3, #E1E5EA, #FFFAB6, #d39861);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
-  min-height: 100vh; */
+  min-height: 100vh;
 }
 
 code {
@@ -16,7 +16,7 @@ code {
     monospace;
 }
 
-/* @keyframes gradient {
+@keyframes gradient {
 	0% {
 		background-position: 0% 50%;
 	}
@@ -26,4 +26,4 @@ code {
 	100% {
 		background-position: 0% 50%;
 	}
-} */
+}

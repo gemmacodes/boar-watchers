@@ -16,10 +16,10 @@ const navStyle = {
   padding: '10px'
 };
 
-const Map = (props) => {
+const Map = ({getMarkerCoordinates}) => {
   // set map base canvas
   const [viewport, setViewport ] = useState({
-    width: "100%",
+    width: "fit",
     height: 300,
     latitude: 41.414,
     longitude: 2.12533,
@@ -49,7 +49,7 @@ const Map = (props) => {
       latitude: event.lngLat[1]
     });
     // marker coordinates are sent to parent node (newEntry)
-    props.getMarkerCoordinates(event.lngLat[1], event.lngLat[0]);
+    getMarkerCoordinates(event.lngLat[1], event.lngLat[0]);
   }, []);
 
   // updates marker position after dragging (takes event coordinates) 
@@ -60,7 +60,7 @@ const Map = (props) => {
       latitude: event.coords.latitude
     });
     // marker coordinates are sent to parent node (newEntry)
-    props.getMarkerCoordinates(event.coords.latitude, event.coords.longitude);
+    getMarkerCoordinates(event.coords.latitude, event.coords.longitude);
   };
 
   

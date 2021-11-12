@@ -29,21 +29,29 @@ export default function App() {
 							<span className="navbar-text p-2">Help the boars!</span>
 					</div>
 				</nav>
+
 				<div>
-					<h2 className="display-3 text-center p-3">Boar Watchers</h2>
-					<div className="d-flex flex-row justify-content-center">
-						<div className="d-flex justify-content-center flex-wrap">
-						<button type="button" class="btn btn-dark btn-lg btn-block m-4"><Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link></button>
-						</div>
-						<div className="d-flex justify-content-center flex-wrap">
-							<button type="button" class="btn btn-dark btn-lg btn-block m-4">	<Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
+					<h2 className="display-3 text-center mt-4 p-3">    
+						Boar Watchers  
+					</h2>
+					
+					<h5 className="text-center p-3"> Did you spot boar/s in an unusual place? Report it!</h5>
+					 
+					<div className="row justify-content-sm-center">
+						<div className="col-sm text-center">
+							<button type="button" class="btn btn-dark btn-lg btn-block m-4"><Link to="/new" className="nav-item nav-link text-white p-2">New sighting</Link></button>
+						{/* </div>
+						<div className="col-sm"> */}
+							<button type="button" class="btn btn-dark btn-lg btn-block m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
 						</div>	
 					</div>
+					<div className="text-center mb-5"><img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/></div>
 				</div>
 				<div>
-						<SightingsMap props={allSightings}/> 
+						<SightingsMap sightings={allSightings} height={500}/> 
 				</div>
 				
+
 			</div>
     )
 }

@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css'; // custom marker (boar)
 
 
-export default function SightingsMap({props}) {
+export default function SightingsMap({sightings, height}) {
 
   const geolocateStyle = {
     float: 'left',
@@ -23,7 +23,7 @@ export default function SightingsMap({props}) {
   // set map base canvas
   const [viewport, setViewport ] = useState({
     width: "100%",
-    height: 300,
+    height: height,
     latitude: 41.414,
     longitude: 2.12533,
     zoom: 12
@@ -40,7 +40,7 @@ export default function SightingsMap({props}) {
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
         {/* map is populated with markers based on DB's stored coordinates */}
-        {props && props.map(sighting => (
+        {sightings && sightings.map(sighting => (
           <Marker
             longitude={sighting.longitude}
             latitude={sighting.latitude}
