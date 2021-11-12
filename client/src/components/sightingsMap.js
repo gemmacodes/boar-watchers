@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css';
 
 
-export default function SightingsMap() {
+export default function SightingsMap({test}) {
+
+  // const [filteredSightings, setFilteredSightings] = useState(test);
+  // const {latitude, longitude, adults, piglets, humanInteraction, comments } = test;
 
   const geolocateStyle = {
     float: 'left',
@@ -29,23 +32,22 @@ export default function SightingsMap() {
     zoom: 12
   })
 
-  const [allSightings, setAllSightings] = useState([]);
-  const [filteredSightings, setFilteredSightings] = useState([]);
+  // const [filteredSightings, setFilteredSightings] = useState([]);
 
-  useEffect(() => {
-    fetch("/sightings")
-      .then(res => res.json())
-      .then(json => {
-        setAllSightings(json);
-        setFilteredSightings(json);
-      })
-      .catch(error => {
-        console.log(error.message);
-      });
-  }, []); 
+  // useEffect(() => {
+  //   fetch("/sightings")
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       setAllSightings(json);
+  //       setFilteredSightings(json);
+  //     })
+  //     .catch(error => {
+  //       console.log(error.message);
+  //     });
+  // }, []); 
 
   return (
-    <div className="container">
+    <div>
       <div style={{ margin: '0 auto'}}>
 
       <MapGL
@@ -54,7 +56,7 @@ export default function SightingsMap() {
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
-        {filteredSightings.map(sighting => (
+        {test && test.map(sighting => (
           <Marker
             longitude={sighting.longitude}
             latitude={sighting.latitude}
