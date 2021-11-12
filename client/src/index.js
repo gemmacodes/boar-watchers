@@ -5,7 +5,6 @@ import App from './App';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NewEntry from "./components/newEntry";
 import SightingsMap from "./components/sightingsMap";
-import Map from "./components/newEntryMap"
 import SightingsTable from "./components/sightingsTable"
 import AllSightings from './components/allSightings';
 
@@ -18,7 +17,6 @@ ReactDOM.render(
         <Route path="/all" element={<AllSightings />}/>
         <Route path="/map" element={<SightingsMap />}/>
         <Route path="/table" element={<SightingsTable />}/>
-        <Route path="/GLmap" element={<Map />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

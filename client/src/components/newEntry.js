@@ -4,6 +4,8 @@ import FormatTimestamp from "./formatTimestamp";
 import { Link } from "react-router-dom";
 import Noty from 'noty';
 import './map.css';
+import "../../node_modules/noty/lib/themes/semanticui.css";
+import "../../node_modules/noty/lib/noty.css";
 
 
 export default function NewEntry() {
@@ -124,7 +126,7 @@ export default function NewEntry() {
             </label>
           </div>
 
-          <button className="btn btn-primary" disabled={(latitude === 0)}>Submit</button>
+          <button className="btn btn-dark my-2" disabled={(latitude === 0)}>Submit</button>
         </form>
 
         {/* if there is an error, show it here*/}

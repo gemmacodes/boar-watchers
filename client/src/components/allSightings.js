@@ -16,15 +16,12 @@ export default function AllSightings() {
     fetch("/sightings")
       .then(res => res.json())
       .then(json => {
-        console.log("working?", json);
         setFilteredSightings(json);
       })
       .catch(error => {
         console.log(error.message);
       });
   }, []); 
-
-
 	
 // GETS USER INPUTS INTO timerange OBJECT
 	const handleChange = (e) => {
@@ -44,6 +41,19 @@ export default function AllSightings() {
     try {
       const res = await fetch(`/sightings/timerange/${year}/${month}`, {
         method: "GET"
+      });
+      const data = await res.json();
+      setFilteredSightings(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // DELETES SIGHTING FROM DB ON delete BUTTON CLICK (AND RENDERS UPDATED DATABASE)
+	const deleteEntry = async id => {
+    try {
+      const res = await fetch(`/sightings/${id}/`, {
+        method: "DELETE"
       });
       const data = await res.json();
       setFilteredSightings(data);
@@ -99,7 +109,7 @@ export default function AllSightings() {
             </div>
           
             <div className="col col-sm">
-              <button className="btn btn-primary" onClick={(e)=>submitTimerange(e)}>Filter</button>
+              <button className="btn btn-dark" onClick={(e)=>submitTimerange(e)}>Filter</button>
             </div>
             </div>
           </form> 
@@ -107,13 +117,13 @@ export default function AllSightings() {
 
   {/* MAP COMPONENT */}
       <div className="container mb-4">
-        <SightingsMap props={filteredSightings}/> 
+        <SightingsMap sightings={filteredSightings} deleteEntry={deleteEntry}/> 
       </div>
 
   {/* TABLE COMPONENT */}
       <div className="container mb-4">
         <h3>Sighting details</h3>
-        <SightingsTable props={filteredSightings}/>
+        <SightingsTable sightings={filteredSightings} deleteEntry={deleteEntry}/>
       </div>
 
     </div>

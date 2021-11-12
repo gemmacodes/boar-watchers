@@ -66,7 +66,7 @@ const Map = (props) => {
   
 
   return (
-    <div style={{ margin: '0 auto'}}>
+    <div>
       <p className="text-primary">Drag the little boar to or click on the Geolocator button to set it on your location</p>
 
       <MapGL

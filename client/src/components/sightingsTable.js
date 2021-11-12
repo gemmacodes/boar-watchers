@@ -2,22 +2,8 @@ import React, { useState, useEffect } from "react";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
-export default function SightingsTable({props}) {
+export default function SightingsTable({sightings, deleteEntry}) {
 
-  // const[filteredSightings, setFilteredSightings] = useState( {...props})
-
-
-// DELETES SIGHTING FROM DB ON delete BUTTON CLICK (AND RENDERS UPDATED DATABASE)
-	const deleteEntry = async id => {
-    try {
-      const res = await fetch(`/sightings/${id}/`, {
-        method: "DELETE"
-      });
-      const data = await res.json();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
 // TEMPLATE
   return (
@@ -39,7 +25,7 @@ export default function SightingsTable({props}) {
           </Thead>
           <Tbody>
             {
-              props && props.map(sighting => (
+              sightings && sightings.map(sighting => (
               <Tr>
                 <Td>{(sighting.timestamp).slice(0, 10)}</Td>
                 <Td><a href={`https://www.openstreetmap.org/#map=19/${sighting.latitude}/${sighting.longitude}`}>{`${sighting.latitude}, ${sighting.longitude}`}</a></Td>
