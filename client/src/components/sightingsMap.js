@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
-import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
+import MapGL, { GeolocateControl, Marker, NavigationControl, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css'; // custom marker (boar)
 
@@ -29,6 +29,9 @@ export default function SightingsMap({sightings, height}) {
     zoom: 12
   })
 
+  const [showPopup, setShowPopup] = useState({});
+
+
   return (
     <div>
 
@@ -40,17 +43,37 @@ export default function SightingsMap({sightings, height}) {
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
         {/* map is populated with markers based on DB's stored coordinates */}
-        {sightings && sightings.map(sighting => (
-          <Marker
-            longitude={sighting.longitude}
-            latitude={sighting.latitude}
-            offsetTop={-20}
-            offsetLeft={-10}
-            key={sighting.id}
-            className="marker"
-          >
-          </Marker>
-        ))}
+        {sightings && sightings.map((sighting) => (
+          <div>
+            <Marker
+              longitude={sighting.longitude}
+              latitude={sighting.latitude}
+              offsetTop={-20}
+              offsetLeft={-10}
+              key={sighting.id}
+              className="marker"
+              onClick={() =>
+                setShowPopup({
+                  ...showPopup,
+                  [sighting.id]: true
+                })}
+            ></Marker>
+
+            {showPopup[sighting.id] && <Popup
+              latitude={sighting.latitude}
+              longitude={sighting.longitude}
+              onClose={() => setShowPopup({
+                ...showPopup,
+                [sighting.id]: false
+              })}
+              closeButton={true}
+              closeOnClick={true}
+              offsetTop={-30}
+            >
+              <p>{`${(sighting.timestamp).slice(0, 10)}`}<br/>{`${sighting.adults} adults`}<br/>{`${sighting.piglets} piglets`}</p>
+            </Popup>}
+          </div>
+          ))}
 
         {/* react-map-gl component: gets geolocation data */}
         <GeolocateControl

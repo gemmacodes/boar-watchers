@@ -35,14 +35,14 @@ export default function App() {
 						Boar Watchers  
 					</h2>
 					
-					<h5 className="text-center p-3"> Did you spot boar/s in an unusual place? Report it!</h5>
+					<h5 className="text-center p-3"> Did you spot boar/s in an unusual place? Share it!</h5>
 					 
 					<div className="row justify-content-sm-center">
 						<div className="col-sm text-center">
-							<button type="button" class="btn btn-dark btn-lg btn-block m-4"><Link to="/new" className="nav-item nav-link text-white p-2">New sighting</Link></button>
+							<button type="button" className="btn btn-dark btn-lg btn-block m-4"><Link to="/new" className="nav-item nav-link text-white p-2">New sighting</Link></button>
 						{/* </div>
 						<div className="col-sm"> */}
-							<button type="button" class="btn btn-dark btn-lg btn-block m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
+							<button type="button" className="btn btn-dark btn-lg btn-block m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
 						</div>	
 					</div>
 					<div className="text-center mb-5"><img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/></div>

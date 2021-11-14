@@ -99,17 +99,17 @@ export default function NewEntry() {
           <div className="col-sm">
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
-                <label for="adults">How many adults?</label>
+                <label for="adults">How many <b>adults</b>?</label>
                 <input name="adults" value={+adults} type="number" min="0" onChange={handleChange} className="form-control"/>
               </div>
 
               <div className="form-group mb-3">
-                <label for="piglets">How many piglets?</label>
+                <label for="piglets">How many <b>piglets</b>?</label>
                 <input name="piglets" value={+piglets} type="number" min="0" onChange={handleChange} className="form-control"/>
               </div>
 
               <div className="form-group mb-3">
-                <label for="humanInteraction">Are they interacting with people?</label>
+                <label for="humanInteraction">Are they <b>interacting</b> with people?</label>
                   <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option value="0">NO</option>
                     <option value="1">YES</option>
@@ -117,7 +117,7 @@ export default function NewEntry() {
               </div>
 
               <div className="form-group mb-3">
-                <label for="comments">Is there any other relevant information?</label>
+                <label for="comments">Is there any other <b>relevant information</b>?</label>
                   <textarea name="comments" value={comments} onChange={handleChange} className="form-control" aria-label="textarea" placeholder="Any comments?"></textarea>
               </div>
 

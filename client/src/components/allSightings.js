@@ -10,7 +10,6 @@ import "../../node_modules/noty/lib/noty.css";
 export default function AllSightings() {
 
   const [filteredSightings, setFilteredSightings] = useState("");
-  const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = filteredSightings;
 	const [timerange, setTimerange] = useState({month: "", year: ""});
 	const { month, year } = timerange;
 
@@ -94,8 +93,8 @@ export default function AllSightings() {
 
   {/* USER INPUT FORM */}
       <div className="container my-4">
-      <h2 className="mb-4">Control panel</h2>
-      <h3>Sightings by month</h3>
+      <h4 className="mb-4">Control panel</h4>
+      <h3 className="display-4">Sightings by month</h3>
       <p className="text-muted">If no month is selected, the map and table will show all time sightings.</p>
         <form className="form-inline">
           <div class="row">
@@ -139,7 +138,7 @@ export default function AllSightings() {
 
   {/* TABLE COMPONENT */}
       <div className="container mb-4">
-        <h3>Sighting details</h3>
+        <h3 className="mb-3">Sighting details</h3>
         <SightingsTable sightings={filteredSightings} deleteEntry={deleteEntry}/>
       </div>
 

@@ -67,7 +67,7 @@ const Map = ({getMarkerCoordinates}) => {
 
   return (
     <div>
-      <p className="text-primary">Drag the little boar to or click on the Geolocator button to set it on your location</p>
+      <p className="text-dark"><b>Drag the little boar</b> to or click on the <b>Geolocator button</b> to set it on your location</p>
 
       <MapGL
         {...viewport}
