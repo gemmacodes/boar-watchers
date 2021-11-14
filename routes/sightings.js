@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const sightingMustExist = require("../guards/sightingMustExist.js");
 
 /* GET sightings listing. */
 router.get('/', async function(req, res, next) {
   try{
-    const results = await db("SELECT * FROM sightings;")
+    const results = await db("SELECT * FROM sightings ORDER BY timestamp DESC;")
     res.send(results.data);
   }
   catch(err){
@@ -17,7 +18,7 @@ router.get('/', async function(req, res, next) {
 router.get('/timerange/:year/:month', async function(req, res, next) {
   try{
     const { month, year } = req.params;
-    const results = await db(`SELECT * FROM sightings WHERE MONTHNAME(timestamp)="${month}" AND YEAR(timestamp)="${year}";`)
+    const results = await db(`SELECT * FROM sightings WHERE MONTHNAME(timestamp)="${month}" AND YEAR(timestamp)="${year}" ORDER BY timestamp DESC`)
     res.send(results.data);
   }
   catch(err){
@@ -26,7 +27,7 @@ router.get('/timerange/:year/:month', async function(req, res, next) {
 });
 
 /* GET one sighting. */
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', sightingMustExist, async function(req, res, next) {
   try{
     const { id } = req.params;
     const results = await db(`SELECT * FROM sightings WHERE id="${id}";`);
@@ -45,7 +46,7 @@ router.post("/", async function(req, res, next) {
     await db(
       `INSERT INTO sightings (timestamp, latitude, longitude, adults, piglets, humanInteraction, comments) VALUES ("${timestamp}", "${latitude}", "${longitude}", "${adults}", "${piglets}", "${humanInteraction}", "${comments}");` 
     );
-    const results = await db(`SELECT * FROM sightings;`);
+    const results = await db(`SELECT * FROM sightings ORDER BY timestamp DESC;`);
     res.status(201).send(results.data);
   } catch (err) {
     res.status(500).send(err);
@@ -53,7 +54,7 @@ router.post("/", async function(req, res, next) {
 });
 
 // MODIFY sighting information
-router.put("/:id", async function(req, res, next) {
+router.put("/:id", sightingMustExist, async function(req, res, next) {
   try {
     const { id } = req.params;
     const { timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = req.body
@@ -67,11 +68,11 @@ router.put("/:id", async function(req, res, next) {
 });
 
 // DELETE a sighting from the DB
-router.delete("/:id", async function(req, res, next) {
+router.delete("/:id", sightingMustExist, async function(req, res, next) {
   try {
     const { id } = req.params;
     await db(`DELETE FROM sightings WHERE id = "${id}";`);
-    const result = await db("SELECT * FROM sightings");
+    const result = await db("SELECT * FROM sightings ORDER BY timestamp DESC");
     res.status(201).send(result.data); 
   } catch (err) {
     res.status(500).send(err);
