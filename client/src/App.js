@@ -23,7 +23,7 @@ export default function App() {
     return (
 			<div className="App">
 				<header className="App-header"></header>
-				<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
 					<div className="container">
 							<a className="mr-auto p-2 navbar-brand text-white" href="/">Boar Watchers</a>
 							<span className="navbar-text p-2">Help the boars!</span>
@@ -39,10 +39,10 @@ export default function App() {
 					 
 					<div className="row justify-content-sm-center">
 						<div className="col-sm text-center">
-							<button type="button" className="btn btn-dark btn-lg btn-block m-4"><Link to="/new" className="nav-item nav-link text-white p-2">New sighting</Link></button>
+							<button type="button" className="btn btn-dark btn-lg btn-block shadow m-4"><Link to="/new" className="nav-item nav-link text-white p-2">New sighting</Link></button>
 						{/* </div>
 						<div className="col-sm"> */}
-							<button type="button" className="btn btn-dark btn-lg btn-block m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
+							<button type="button" className="btn btn-dark btn-lg btn-block shadow m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
 						</div>	
 					</div>
 					<div className="text-center mb-5"><img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/></div>

@@ -82,7 +82,7 @@ export default function NewEntry() {
     <div>
   
       <div>
-        <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
           <div className="container">
             <Link to="/" className="nav-item nav-link text-white p-2">Home</Link> |{" "}
             <Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link> |{" "}
@@ -91,7 +91,7 @@ export default function NewEntry() {
         </nav>
       </div>
 
-    <div className="container mt-4">
+    <div className="container mt-5">
         <h3 className="display-4 mb-5">New sighting</h3>
 
         <div className="row d-flex">
@@ -100,17 +100,17 @@ export default function NewEntry() {
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
                 <label for="adults">How many <b>adults</b>?</label>
-                <input name="adults" value={+adults} type="number" min="0" onChange={handleChange} className="form-control"/>
+                <input name="adults" value={+adults} type="number" min="0" onChange={handleChange} className="form-control shadow"/>
               </div>
 
               <div className="form-group mb-3">
                 <label for="piglets">How many <b>piglets</b>?</label>
-                <input name="piglets" value={+piglets} type="number" min="0" onChange={handleChange} className="form-control"/>
+                <input name="piglets" value={+piglets} type="number" min="0" onChange={handleChange} className="form-control shadow"/>
               </div>
 
               <div className="form-group mb-3">
                 <label for="humanInteraction">Are they <b>interacting</b> with people?</label>
-                  <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm" aria-label=".form-select-sm example">
+                  <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm shadow" aria-label=".form-select-sm example">
                     <option value="0">NO</option>
                     <option value="1">YES</option>
                   </select>
@@ -118,22 +118,25 @@ export default function NewEntry() {
 
               <div className="form-group mb-3">
                 <label for="comments">Is there any other <b>relevant information</b>?</label>
-                  <textarea name="comments" value={comments} onChange={handleChange} className="form-control" aria-label="textarea" placeholder="Any comments?"></textarea>
+                  <textarea name="comments" value={comments} onChange={handleChange} className="form-control shadow" rows="5" placeholder="Any comments?"></textarea>
               </div>
 
-              <button className="btn btn-dark mb-3 my-2" disabled={(latitude === 0)}>Submit</button>
+              {/* <button className="btn btn-dark mb-3 my-2" disabled={(latitude === 0)}>Submit</button> */}
             </form>
           </div>
 
-        {/* MAP RENDER: Map only loads when latitude & longitude are available */}
+        {/* MAP RENDER */}
           <div className="col-sm">
-            <Map getMarkerCoordinates={(lat, long)=> handleCoordinates(lat, long)}/>
+              <Map getMarkerCoordinates={(lat, long)=> handleCoordinates(lat, long)}/>
             <p className="text-muted">Latitude: {latitude} <br/> Longitude: {longitude}</p>
           </div>
         </div>
       </div>
 
       <div className="row d-flex mt-5">
+      <div className="text-center">
+        <button className="btn btn-lg btn-dark mb-3 my-2 shadow" disabled={(latitude === 0)}>Submit</button>
+      </div>
       <div className="text-center mt-5">
         <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
         <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>

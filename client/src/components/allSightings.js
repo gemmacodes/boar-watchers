@@ -99,7 +99,7 @@ export default function AllSightings() {
         <form className="form-inline">
           <div class="row">
             <div class="col col-sm">
-              <select className="form-control" name="month" value={month}  onChange={handleChange}>
+              <select className="form-control shadow" name="month" value={month}  onChange={handleChange}>
                 <option value="" selected>Select month</option>
                 <option value="january">January</option>
                 <option value="february">February</option>
@@ -117,7 +117,7 @@ export default function AllSightings() {
             </div>
 
             <div class="col col-sm">
-              <select className="form-control" name="year" value={year} onChange={handleChange}>
+              <select className="form-control shadow" name="year" value={year} onChange={handleChange}>
                 <option value="" selected>Select year</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
@@ -125,7 +125,7 @@ export default function AllSightings() {
             </div>
           
             <div className="col col-sm">
-              <button className="btn btn-dark" onClick={(e)=>submitTimerange(e)}>Filter</button>
+              <button className="btn btn-dark shadow" onClick={(e)=>submitTimerange(e)}>Filter</button>
             </div>
             </div>
           </form> 

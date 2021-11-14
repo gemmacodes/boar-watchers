@@ -4,15 +4,16 @@ import React, { useState, useCallback } from 'react'
 import './map.css';
 
 const geolocateStyle = {
-  float: 'right',
-  margin: '50px',
+  float: 'left',
+  left: 10,
+  top: 10,
   padding: '10px'
 };
 
 const navStyle = {
-  position: "absolute",
-  top: 0,
-  left: 0,
+  position: 'absolute',
+  left: 10,
+  top: 50,
   padding: '10px'
 };
 
@@ -69,6 +70,8 @@ const Map = ({getMarkerCoordinates}) => {
     <div>
       <p className="text-dark"><b>Drag the little boar</b> to or click on the <b>Geolocator button</b> to set it on your location</p>
 
+
+      <div className="shadow">
       <MapGL
         {...viewport}
         mapboxApiAccessToken={"pk.eyJ1Ijoic3dpdGNoZXJldHRlIiwiYSI6ImNrdnRibXZocDNib3Eyb3RrN3IweDJ5N2cifQ.WDHMD5bo0qcahirCdlT0-A"}
@@ -100,6 +103,7 @@ const Map = ({getMarkerCoordinates}) => {
         </div>
 
       </MapGL>
+      </div>
     </div>
   )
 }

@@ -9,14 +9,15 @@ export default function SightingsMap({sightings, height}) {
 
   const geolocateStyle = {
     float: 'left',
-    margin: '50px',
+    left: 10,
+    top: 10,
     padding: '10px'
   };
   
   const navStyle = {
     position: 'absolute',
     left: 10,
-    top: 10,
+    top: 50,
     padding: '10px'
   };
 
@@ -33,7 +34,7 @@ export default function SightingsMap({sightings, height}) {
 
 
   return (
-    <div>
+    <div className="shadow">
 
       {/* map component */}
       <MapGL
@@ -70,7 +71,7 @@ export default function SightingsMap({sightings, height}) {
               closeOnClick={true}
               offsetTop={-30}
             >
-              <p>{`${(sighting.timestamp).slice(0, 10)}`}<br/>{`${sighting.adults} adults`}<br/>{`${sighting.piglets} piglets`}</p>
+              <p><b>{`#${(sighting.id)}`}</b><br/>{`${(sighting.timestamp).slice(0, 10)}`}<br/>{`- ${sighting.adults} adults`}<br/>{`- ${sighting.piglets} piglets`}</p>
             </Popup>}
           </div>
           ))}
