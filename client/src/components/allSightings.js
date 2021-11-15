@@ -83,11 +83,10 @@ export default function AllSightings() {
       <Navbar />
 
   {/* USER INPUT FORM */}
-      <div className="container my-4">
-      <h4 className="mb-4">Control panel</h4>
+      <div className="container mt-5">
       <h3 className="display-4">Sightings by month</h3>
-      <p className="text-muted">If no month is selected, the map and table will show all time sightings.</p>
-        <form className="form-inline">
+      <p className="text-muted mb-4">If no month is selected, the map and table will show all time sightings.</p>
+        <form className="form-inline mb-4">
           <div class="row">
             <div class="col col-sm">
               <select className="form-control shadow" name="month" value={month}  onChange={handleChange}>

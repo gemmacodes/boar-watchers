@@ -74,8 +74,7 @@ export default function Map ({getMarkerCoordinates}) {
 
   return (
     <div>
-      <p className="text-dark"><b>Drag the little boar</b> to or click on the <b>Geolocator button</b> to set it on your location</p>
-
+      <div className="mb-3"><h5><b>Drag the little boar</b> or click the <b>Geolocator button</b> to set a location</h5></div>
 
       <div className="shadow">
       <MapGL

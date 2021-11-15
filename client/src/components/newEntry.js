@@ -11,7 +11,7 @@ import "../../node_modules/noty/lib/noty.css";
 export default function NewEntry() {
   const [sightings, setSightings] = useState([]); 
   const [error, setError] = useState(null);
-  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 41.414, longitude: 2.12533, adults: 0, piglets: 0, humanInteraction: 0, comments: " "})
+  const [newSighting, setNewSighting] = useState({timestamp: FormatTimestamp(new Date()), latitude: 41.414, longitude: 2.12533, adults: 0, piglets: 0, humanInteraction: 0, comments: ""})
   const {timestamp, latitude, longitude, adults, piglets, humanInteraction, comments } = newSighting;
   
 // LOADS DB INFO INTO sightings ARRAY
@@ -84,24 +84,25 @@ export default function NewEntry() {
 
     <div className="container mt-5">
         <h3 className="display-4 mb-5">New sighting</h3>
-
         <div className="row d-flex">
     {/* USER INPUT FORM */} 
           <div className="col-sm">
+            <div className="mb-3"><h5>Add <b>information</b> about the sighting</h5></div>
             <form onSubmit={handleSubmit}>
-              <div className="form-group mb-3">
+            <div className="row d-flex">
+              <div className="col-sm form-group mb-3">
                 <label>How many <b>adults</b>?</label>
                 <input name="adults" value={+adults} type="number" min="0" onChange={handleChange} className="form-control shadow"/>
               </div>
 
-              <div className="form-group mb-3">
+              <div className="col-sm form-group mb-3">
                 <label>How many <b>piglets</b>?</label>
                 <input name="piglets" value={+piglets} type="number" min="0" onChange={handleChange} className="form-control shadow"/>
               </div>
-
-              <div className="form-group mb-3">
-                <label>Are they <b>interacting</b> with people?</label>
-                  <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm shadow" aria-label=".form-select-sm example">
+            </div>
+              <div className="col-sm form-group mb-3">
+                <label>Are they <b>interacting</b> with people and/or urban food sources?</label>
+                  <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select shadow" aria-label=".form-select-sm example">
                     <option value="0">NO</option>
                     <option value="1">YES</option>
                   </select>
@@ -109,10 +110,9 @@ export default function NewEntry() {
 
               <div className="form-group mb-3">
                 <label>Is there any other <b>relevant information</b>?</label>
-                  <textarea name="comments" value={comments} onChange={handleChange} className="form-control shadow" rows="5" placeholder="Any comments?"></textarea>
+                  <textarea name="comments" value={comments} onChange={handleChange} className="form-control shadow" rows="3" placeholder="Any comments?"></textarea>
               </div>
-
-              {/* <button className="btn btn-dark mb-3 my-2" disabled={(latitude === 0)}>Submit</button> */}
+              <button className="btn btn-dark mb-3 my-2" disabled={(latitude === 0)}>Submit</button>
             </form>
           </div>
 
@@ -120,15 +120,12 @@ export default function NewEntry() {
         {/* MAP RENDER */}
           <div className="col-sm">
               <Map getMarkerCoordinates={(lat, long)=> handleCoordinates(lat, long)}/>
-            <p className="text-muted">Latitude: {latitude} <br/> Longitude: {longitude}</p>
+            <p className="text-muted">Latitude: {latitude}. Longitude: {longitude}</p>
           </div>
         </div>
       </div>
 
       <div className="row d-flex mt-5">
-      <div className="text-center">
-        <button className="btn btn-lg btn-dark mb-3 my-2 shadow" disabled={(latitude === 0)}>Submit</button>
-      </div>
       <div className="text-center mt-5">
         <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60" alt="boar emoji"/>
         <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60" alt="boar emoji"/>

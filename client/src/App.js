@@ -25,8 +25,8 @@ export default function App() {
 				<header className="App-header"></header>
 				<nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
 					<div className="container">
-						<a className="mr-auto p-2 navbar-brand text-white" href="/">Boar Watchers</a>
-						<span className="navbar-text p-2">Help the boars!</span>
+						<a className="navbar-brand text-white" href="/"><b>Boar Watchers</b></a>
+						<span className="navbar-text p-2"><i>Spot the boars!</i></span>
 					</div>
 				</nav>
 
