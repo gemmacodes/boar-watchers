@@ -66,12 +66,6 @@ export default function Map ({getMarkerCoordinates}) {
     getMarkerCoordinates(event.coords.latitude, event.coords.longitude);
   };
 
-  useEffect(() => {
-    
-      console.log(MAP_TOKEN);
-    
-  }, [])
-
   return (
     <div>
       <div className="mb-3"><h5><b>Drag the little boar</b> or click the <b>Geolocator button</b> to set a location</h5></div>

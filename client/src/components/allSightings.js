@@ -90,7 +90,7 @@ export default function AllSightings() {
           <div class="row">
             <div class="col col-sm">
               <select className="form-control shadow" name="month" value={month}  onChange={handleChange}>
-                <option value="" selected>Select month</option>
+                <option value="" selected="selected">Select month</option>
                 <option value="january">January</option>
                 <option value="february">February</option>
                 <option value="march">March</option>
@@ -108,7 +108,7 @@ export default function AllSightings() {
 
             <div class="col col-sm">
               <select className="form-control shadow" name="year" value={year} onChange={handleChange}>
-                <option value="" selected>Select year</option>
+                <option value="" selected="selected">Select year</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
               </select> 
