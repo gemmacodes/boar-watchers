@@ -1,18 +1,18 @@
 # Boar Watchers: wild boar tracker :boar:
-This SPA allows users to report any unusual boar sightings.
+This SPA allows users to report any unusual boar sightings.*Why would somebody need to do that?*
 
-*Why would somebody need to do that?*
-The wild boar (Sus scrofa) is a native species in Catalonia. In recent years, it has proliferated to the point that we have seen an increase in incidents caused by their presence in several populated areas around Collserola, including Barcelona. Urban food sources (troughs, food for cats, waste, etc.) are the reason that boar are colonising the urban environment in a process of adaption that has been evolving over several generations; however, wild boars are not an urban species and should therefore not be in the urban environment, because of the risks they bring and because they cannot be re-introduced into the wild afterwards.
+The wild boar (Sus scrofa) is a native species in Catalonia. In recent years, it has proliferated to the point that there has been a significant increase in incidents caused by their presence in several populated areas around Collserola, including Barcelona. Urban food sources (troughs, food for cats, waste, etc.) are the reason that boar are colonising the urban environment in a process of adaption that has been evolving over several generations; however, wild boars are not an urban species and should therefore not be in the urban environment, because of the risks they bring and because they cannot be re-introduced into the wild afterwards.
 
 Work must be done to keep them native to the natural environment and to remove them from the city, and being able to locate them and their urban food sources is the first step towards it.
 
 # What you need to know
 
 1. [Get started](#setup)
-1.1 [Dependencies](#dependencies)
-1.2 [Development](#development)
-2. [Database schema](#database)
-3. [API routes plan](#API-routes)
+    1. [Dependencies](#dependencies)
+    2. [Database prep](#database-prep)
+    3. [Development](#development)
+2. [Database schema](#database-schema)
+3. [API routes plan](#API-routes-plan)
 4. [Full stack architecture](#architecture)
 
 ## Setup
@@ -70,3 +70,13 @@ Database "boartrackers", 1 table ("sightings"):
 | piglets          | integer                      |
 | humanInteraction | tinyint                      |
 | comments         | varchar(255)                 |
+
+## API routes plan
+
+| URl                | HTTP METHOD | DESCRIPTION                 | REQUEST OBJECT                                                                                                                                                            | RESPONSE OBJECT                                                                                                                                                                   |
+|--------------------|-------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| /api/sightings     | GET         | Get all sightings           | n/a                                                                                                                                                                       | [ { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }, ...] |
+| /api/sightings/:id | GET         | Get sighting by id          | n/a                                                                                                                                                                       | { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }         |
+| /api/sightings     | POST        | Create new sighting         | { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string } | [ { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }, ...] |
+| /api/sightings/:id | PUT         | Edit sighting information   | { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string } |                                                                                                                                                                                   |
+| /api/sightings/:id | DELETE      | Delete sighting information |                                                                                                                                                                           | [ { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }, ...] |
