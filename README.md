@@ -1,19 +1,23 @@
 # Boar Watchers: wild boar tracker :boar:
-This SPA allows users to report any unusual boar sightings.*Why would somebody need to do that?*
 
-The wild boar (Sus scrofa) is a native species in Catalonia. In recent years, it has proliferated to the point that there has been a significant increase in incidents caused by their presence in several populated areas around Collserola, including Barcelona. Urban food sources (troughs, food for cats, waste, etc.) are the reason that boar are colonising the urban environment in a process of adaption that has been evolving over several generations; however, wild boars are not an urban species and should therefore not be in the urban environment, because of the risks they bring and because they cannot be re-introduced into the wild afterwards.
+**What does Boar Watchers do?**
+This SPA allows users to report any unusual boar sightings.
+
+**Why would somebody need to do that?**
+The wild boar (*Sus scrofa*) is a native species in Catalonia. In recent years, it has proliferated to the point that there has been a significant increase in incidents caused by their presence in several populated areas around Collserola, including Barcelona. Urban food sources (troughs, food for cats, waste, etc.) are the reason that boar are colonising the urban environment in a process of adaption that has been evolving over several generations; however, wild boars are not an urban species and should therefore not be in the urban environment, because of the risks they bring and because they cannot be re-introduced into the wild afterwards.
 
 Work must be done to keep them native to the natural environment and to remove them from the city, and being able to locate them and their urban food sources is the first step towards it.
 
 # What you need to know
 
 1. [Get started](#setup)
-    1. [Dependencies](#dependencies)
-    2. [Database prep](#database-prep)
-    3. [Development](#development)
-2. [Database schema](#database-schema)
-3. [API routes plan](#API-routes-plan)
-4. [Full stack architecture](#architecture)
+    - [Dependencies](#dependencies)
+    - [Database prep](#database-prep)
+    - [Development](#development)
+2. [Architecture](#architecture)
+  - [Database schema](#database-schema)
+  - [API routes plan](#API-routes-plan)
+  - [Components](#components)
 
 ## Setup
 
@@ -22,13 +26,14 @@ Work must be done to keep them native to the natural environment and to remove t
 - Run `npm install` in project directory. This will install server-related dependencies such as `express`.
 - Navigate into the app folder `cd client` and run `npm install`. This will install client dependencies (React).
 
-This project requires several additional libraries to be installed:
-- React router `"https://reactrouter.com/"`
-- Mapbox GL JS `"https://docs.mapbox.com/mapbox-gl-js/guides/"`
-- react-map.gl Geocoder `"https://github.com/visgl/react-map-gl"`
-- Noty `"https://ned.im/noty/#/"`
-- react-super-responsive-table `"https://github.com/coston/react-super-responsive-table"`
-- Bootstrap `"https://getbootstrap.com/"`
+This project uses several additional libraries. Here you can find more information about them:
+- React router https://reactrouter.com/
+- Mapbox GL JS https://docs.mapbox.com/mapbox-gl-js/guides/
+- react-map-gl https://visgl.github.io/react-map-gl/
+- Geocoder https://github.com/visgl/react-map-gl
+- Noty https://ned.im/noty/#/
+- react-super-responsive-table https://github.com/coston/react-super-responsive-table
+- Bootstrap https://getbootstrap.com/
 
 
 ### Database Prep
@@ -55,8 +60,9 @@ This project requires several additional libraries to be installed:
 
 Happy coding!
 
+## Setup
 
-## Database schema
+### Database schema
 
 Database "boartrackers", 1 table ("sightings"):
 
@@ -71,12 +77,26 @@ Database "boartrackers", 1 table ("sightings"):
 | humanInteraction | tinyint                      |
 | comments         | varchar(255)                 |
 
-## API routes plan
+### API routes plan
 
 | URl                | HTTP METHOD | DESCRIPTION                 | REQUEST OBJECT                                                                                                                                                            | RESPONSE OBJECT                                                                                                                                                                   |
 |--------------------|-------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | /api/sightings     | GET         | Get all sightings           | n/a                                                                                                                                                                       | [ { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }, ...] |
 | /api/sightings/:id | GET         | Get sighting by id          | n/a                                                                                                                                                                       | { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }         |
+| /api/sightings/timerange/:year/:month | GET         | Get sightings by month and year          | n/a                                                                                                                                                                       | [{ id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }...]         |
 | /api/sightings     | POST        | Create new sighting         | { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string } | [ { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }, ...] |
 | /api/sightings/:id | PUT         | Edit sighting information   | { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string } |                                                                                                                                                                                   |
 | /api/sightings/:id | DELETE      | Delete sighting information |                                                                                                                                                                           | [ { id: integer, timestamp: timestamp, latitude: float, latitude: float, longitude: float, adults: integer, piglets: integer, humanInteraction: boolean, comments: string }, ...] |
+
+### Components
+
+- **Navbar**: main menu
+- **NewEntry**: displays user input form and map to locate sighting
+  - **Map**: map with draggable marker used to locate a sighting
+  - **FormatTimestamp**: converter from UNIX timestamp to mySQL timestamp format
+- **AllSightings**: displays map and table with all recorded sightings, with an option to filter by month/year. 
+  - **SightingsMap**: map with fixed markers/popups for selected sightings.
+  - **SightingsTable**: table with information from selected sightings.
+
+
+ _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
