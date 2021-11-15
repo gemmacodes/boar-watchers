@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Navbar from "./navbar"
 import SightingsTable from "./sightingsTable";
 import SightingsMap from "./sightingsMap";
 import Noty from 'noty';
@@ -80,16 +80,7 @@ export default function AllSightings() {
 
   return (
     <div>
-  {/* NAVBAR */}
-      <div>
-        <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-          <div className="container align-items-center">
-            <Link to="/" className="nav-item nav-link text-white p-2">Home</Link> |{" "}
-            <Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link> |{" "}
-            <Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link>
-          </div>
-        </nav>
-      </div>
+      <Navbar />
 
   {/* USER INPUT FORM */}
       <div className="container my-4">

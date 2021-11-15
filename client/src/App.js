@@ -25,8 +25,8 @@ export default function App() {
 				<header className="App-header"></header>
 				<nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
 					<div className="container">
-							<a className="mr-auto p-2 navbar-brand text-white" href="/">Boar Watchers</a>
-							<span className="navbar-text p-2">Help the boars!</span>
+						<a className="mr-auto p-2 navbar-brand text-white" href="/">Boar Watchers</a>
+						<span className="navbar-text p-2">Help the boars!</span>
 					</div>
 				</nav>
 
@@ -40,8 +40,6 @@ export default function App() {
 					<div className="row justify-content-sm-center">
 						<div className="col-sm text-center">
 							<button type="button" className="btn btn-dark btn-lg btn-block shadow m-4"><Link to="/new" className="nav-item nav-link text-white p-2">New sighting</Link></button>
-						{/* </div>
-						<div className="col-sm"> */}
 							<button type="button" className="btn btn-dark btn-lg btn-block shadow m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
 						</div>	
 					</div>

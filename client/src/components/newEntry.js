@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Navbar from "./navbar"
 import Map from "./newEntryMap"
 import FormatTimestamp from "./formatTimestamp";
-import { Link } from "react-router-dom";
 import Noty from 'noty';
 import './map.css';
 import "../../node_modules/noty/lib/themes/semanticui.css";
@@ -80,16 +80,7 @@ export default function NewEntry() {
 // HTML TEMPLATE
   return (
     <div>
-  
-      <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-          <div className="container">
-            <Link to="/" className="nav-item nav-link text-white p-2">Home</Link> |{" "}
-            <Link to="/new" className="nav-item nav-link text-white p-2">Report new sighting</Link> |{" "}
-            <Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link>
-          </div>
-        </nav>
-      </div>
+      <Navbar />
 
     <div className="container mt-5">
         <h3 className="display-4 mb-5">New sighting</h3>
