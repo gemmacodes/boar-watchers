@@ -64,7 +64,7 @@ Happy coding!
 
 ### Database schema
 
-Database "boartrackers", 1 table ("sightings"):
+Database "boartracker", 1 table ("sightings"):
 
 | FIELD            | DATA TYPE                    |
 |------------------|------------------------------|
