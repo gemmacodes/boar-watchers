@@ -1,7 +1,9 @@
 import MapGL, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import './map.css';
+
+const MAP_TOKEN = process.env.REACT_APP_MAP_TOKEN;
 
 const geolocateStyle = {
   float: 'left',
@@ -17,7 +19,7 @@ const navStyle = {
   padding: '10px'
 };
 
-const Map = ({getMarkerCoordinates}) => {
+export default function Map ({getMarkerCoordinates}) {
   // set map base canvas
   const [viewport, setViewport ] = useState({
     width: "fit",
@@ -64,7 +66,11 @@ const Map = ({getMarkerCoordinates}) => {
     getMarkerCoordinates(event.coords.latitude, event.coords.longitude);
   };
 
-  
+  useEffect(() => {
+    
+      console.log(MAP_TOKEN);
+    
+  }, [])
 
   return (
     <div>
@@ -74,7 +80,7 @@ const Map = ({getMarkerCoordinates}) => {
       <div className="shadow">
       <MapGL
         {...viewport}
-        mapboxApiAccessToken={"pk.eyJ1Ijoic3dpdGNoZXJldHRlIiwiYSI6ImNrdnRibXZocDNib3Eyb3RrN3IweDJ5N2cifQ.WDHMD5bo0qcahirCdlT0-A"}
+        mapboxApiAccessToken={MAP_TOKEN}
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
@@ -107,6 +113,4 @@ const Map = ({getMarkerCoordinates}) => {
     </div>
   )
 }
-
-export default Map
 

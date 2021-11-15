@@ -35,7 +35,7 @@ export default function App() {
 						Boar Watchers  
 					</h2>
 					
-					<h5 className="text-center p-3"> Did you spot boar/s in an unusual place? Share it!</h5>
+					<h5 className="text-center p-3"> Did you spot boars in an unusual place? Share it!</h5>
 					 
 					<div className="row justify-content-sm-center">
 						<div className="col-sm text-center">
@@ -43,7 +43,7 @@ export default function App() {
 							<button type="button" className="btn btn-dark btn-lg btn-block shadow m-4"><Link to="/all" className="nav-item nav-link text-white p-2">All sightings</Link></button>
 						</div>	
 					</div>
-					<div className="text-center mb-5"><img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/></div>
+					<div className="text-center mb-5"><img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60" alt="boar emoji"/></div>
 				</div>
 				<div>
 						<SightingsMap sightings={allSightings} height={500}/> 

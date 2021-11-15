@@ -3,7 +3,7 @@ import Navbar from "./navbar"
 import SightingsTable from "./sightingsTable";
 import SightingsMap from "./sightingsMap";
 import Noty from 'noty';
-import "../../node_modules/noty/lib/themes/semanticui.css";
+import "../../node_modules/noty/lib/themes/bootstrap-v4.css";
 import "../../node_modules/noty/lib/noty.css";
 
 
@@ -60,7 +60,7 @@ export default function AllSightings() {
       const data = await res.json();
       setFilteredSightings(data);
       new Noty({
-        theme: 'semanticui',
+        theme: 'bootstrap-v4',
         type: 'success',
         layout: 'topRight',
         text: 'Sighting deleted correctly!',
@@ -69,7 +69,7 @@ export default function AllSightings() {
     } catch (err) {
       console.log(err);
       new Noty({
-        theme: 'semanticui',
+        theme: 'bootstrap-v4',
         type: 'error',
         layout: 'topRight',
         text: 'Ouch! Something went wrong. Try again!',

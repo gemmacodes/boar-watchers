@@ -4,7 +4,7 @@ import Map from "./newEntryMap"
 import FormatTimestamp from "./formatTimestamp";
 import Noty from 'noty';
 import './map.css';
-import "../../node_modules/noty/lib/themes/semanticui.css";
+import "../../node_modules/noty/lib/themes/bootstrap-v4.css";
 import "../../node_modules/noty/lib/noty.css";
 
 
@@ -58,7 +58,7 @@ export default function NewEntry() {
       const data = await res.json();
       setSightings(data); // sightings array gets updated as well (so I do not need to reload page)
       new Noty({
-        theme: 'semanticui',
+        theme: 'bootstrap-v4',
         type: 'success',
         layout: 'topRight',
         text: 'Your sighting has been added correctly!',
@@ -68,7 +68,7 @@ export default function NewEntry() {
     } catch (err) {
       setError(err);
       new Noty({
-        theme: 'semanticui',
+        theme: 'bootstrap-v4',
         type: 'error',
         layout: 'topRight',
         text: 'Ouch! Something went wrong. Try again!',
@@ -90,17 +90,17 @@ export default function NewEntry() {
           <div className="col-sm">
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
-                <label for="adults">How many <b>adults</b>?</label>
+                <label>How many <b>adults</b>?</label>
                 <input name="adults" value={+adults} type="number" min="0" onChange={handleChange} className="form-control shadow"/>
               </div>
 
               <div className="form-group mb-3">
-                <label for="piglets">How many <b>piglets</b>?</label>
+                <label>How many <b>piglets</b>?</label>
                 <input name="piglets" value={+piglets} type="number" min="0" onChange={handleChange} className="form-control shadow"/>
               </div>
 
               <div className="form-group mb-3">
-                <label for="humanInteraction">Are they <b>interacting</b> with people?</label>
+                <label>Are they <b>interacting</b> with people?</label>
                   <select name="humanInteraction" value={humanInteraction}  onChange={handleChange} className="form-select form-select-sm shadow" aria-label=".form-select-sm example">
                     <option value="0">NO</option>
                     <option value="1">YES</option>
@@ -108,13 +108,14 @@ export default function NewEntry() {
               </div>
 
               <div className="form-group mb-3">
-                <label for="comments">Is there any other <b>relevant information</b>?</label>
+                <label>Is there any other <b>relevant information</b>?</label>
                   <textarea name="comments" value={comments} onChange={handleChange} className="form-control shadow" rows="5" placeholder="Any comments?"></textarea>
               </div>
 
               {/* <button className="btn btn-dark mb-3 my-2" disabled={(latitude === 0)}>Submit</button> */}
             </form>
           </div>
+
 
         {/* MAP RENDER */}
           <div className="col-sm">
@@ -129,9 +130,9 @@ export default function NewEntry() {
         <button className="btn btn-lg btn-dark mb-3 my-2 shadow" disabled={(latitude === 0)}>Submit</button>
       </div>
       <div className="text-center mt-5">
-        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
-        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
-        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60"/>
+        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60" alt="boar emoji"/>
+        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60" alt="boar emoji"/>
+        <img src="https://emojigraph.org/media/softbank/boar_1f417.png" width="60" alt="boar emoji"/>
       </div>
       </div>
 

@@ -31,6 +31,7 @@ export default function SightingsMap({sightings, height}) {
   })
 
   const [showPopup, setShowPopup] = useState({});
+  const MAP_TOKEN = process.env.REACT_APP_MAP_TOKEN;
 
 
   return (
@@ -39,7 +40,7 @@ export default function SightingsMap({sightings, height}) {
       {/* map component */}
       <MapGL
         {...viewport}
-        mapboxApiAccessToken={"pk.eyJ1Ijoic3dpdGNoZXJldHRlIiwiYSI6ImNrdnRibXZocDNib3Eyb3RrN3IweDJ5N2cifQ.WDHMD5bo0qcahirCdlT0-A"}
+        mapboxApiAccessToken={MAP_TOKEN}
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         onViewportChange = {nextViewport => setViewport(nextViewport)} // updates map render
        >
