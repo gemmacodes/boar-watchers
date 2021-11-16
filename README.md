@@ -101,7 +101,7 @@ The "boartracker" database only has one table called "sightings":
   - **SightingsTable**: table with information from selected sightings.
 
 ## Possible future extensions
-- Admin panel: Build authentication so that only admins can access ‘all sightings’ information, edit/delete entries and apply further filters
+- Admin panel: Build authentication so that only admins can access ‘all sightings’ information, edit/delete entries and apply further filters.
 - Photo upload: Improve user input form with the option to upload a picture of the sighting
 - Adding educational resources: Add checklist with steps users should follow when spotting boars (who to call, how to act…)
 - Pivot: Adapt app for other uses, eg. locate abandoned cats
