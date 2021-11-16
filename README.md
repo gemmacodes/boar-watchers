@@ -9,6 +9,7 @@
     - [Database schema](#database-schema)
     - [API routes plan](#API-routes-plan)
     - [Components](#react-app-components)
+4. [Possible future extensions](#possible-future-extensions)
 
 ## Context
 
@@ -98,5 +99,11 @@ The "boartracker" database only has one table called "sightings":
 - **AllSightings**: displays map and table with all recorded sightings, with an option to filter by month/year. It displays two components:
   - **SightingsMap**: map with fixed markers/popups for selected sightings.
   - **SightingsTable**: table with information from selected sightings.
+
+## Possible future extensions
+- Admin panel: Build authentication so that only admins can access ‘all sightings’ information, edit/delete entries and apply further filters
+- Photo upload: Improve user input form with the option to upload a picture of the sighting
+- Adding educational resources: Add checklist with steps users should follow when spotting boars (who to call, how to act…)
+- Pivot: Adapt app for other uses, eg. locate abandoned cats
 
  _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
