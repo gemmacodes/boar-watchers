@@ -21,6 +21,8 @@ The wild boar (*Sus scrofa*) is a native species in Catalonia. In recent years, 
 
 Work must be done to keep them native to the natural environment and to remove them from the city, and being able to locate them and their urban food sources is the first step towards it.
 
+More information: https://shorturl.at/axAF4
+
 ## Setup
 
 ### Dependencies
@@ -37,8 +39,6 @@ This project uses several additional libraries, which should also get installed 
 - Noty https://ned.im/noty/#/
 - react-super-responsive-table https://github.com/coston/react-super-responsive-table
 - Bootstrap https://getbootstrap.com/
-
-You will also need an API key
 
 
 ### Database Prep
