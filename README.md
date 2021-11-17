@@ -31,11 +31,14 @@ Work must be done to keep them native to the natural environment and to remove t
 This project uses several additional libraries, which should also get installed when you run `npm install`. Here you can find more information about them:
 - React router https://reactrouter.com/
 - Mapbox GL JS https://docs.mapbox.com/mapbox-gl-js/guides/
+  - IMPORTANT! You need to get an [API access token](https://docs.mapbox.com/help/getting-started/access-tokens/#how-access-tokens-work) to configure Mapbox GL JS, Mobile, and Mapbox web services like routing and geocoding. 
 - react-map-gl https://visgl.github.io/react-map-gl/
 - Geocoder https://github.com/visgl/react-map-gl
 - Noty https://ned.im/noty/#/
 - react-super-responsive-table https://github.com/coston/react-super-responsive-table
 - Bootstrap https://getbootstrap.com/
+
+You will also need an API key
 
 
 ### Database Prep
